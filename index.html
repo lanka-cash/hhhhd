@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,10 +96,12 @@
       width: 100%;
       font-size: 16px;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     .repayment {
-      margin-top: 15px;
+      margin-top: 10px;
+      margin-bottom: 10px;
       text-align: center;
       font-weight: bold;
       color: #333;
@@ -118,9 +120,9 @@
 <header>
   <div class="left-header">capital lanka</div>
   <div class="right-header">
-    <select class="flag-selector">
-      <option value="en">🇬🇧</option>
-      <option value="si">🇱🇰</option>
+    <select class="flag-selector" id="langSelect">
+      <option value="si" selected>🇱🇰 සිංහල</option>
+      <option value="en">🇬🇧 English</option>
     </select>
     <button class="login-btn">Login</button>
     <button class="menu-btn">☰</button>
@@ -128,24 +130,24 @@
 </header>
 
 <div class="container">
-  <div class="title">Fast online loans up to Rs 300,000</div>
-  <div class="desc">Only NIC is required. Get your money in 5 minutes.</div>
+  <div class="title" id="title">ඉක්මන් ණය ලබා ගන්න Rs 300,000 දක්වා</div>
+  <div class="desc" id="desc">හැමොටම NIC පමණක් අවශ්‍යයි. විනාඩි 5න් මුදල් ලබා ගන්න.</div>
 
   <div class="form-group">
-    <label>Loan amount: Rs <span id="loanValue">40000</span></label>
+    <label id="loanLabel">ණය මුදල: Rs <span id="loanValue">40000</span></label>
     <input type="range" id="loanSlider" min="40000" max="300000" value="40000" step="1000">
   </div>
 
   <div class="form-group">
-    <label>Enter phone number</label>
+    <label id="phoneLabel">දුරකථන අංකය ඇතුලත් කරන්න</label>
     <input type="tel" placeholder="07XXXXXXXX">
   </div>
 
-  <a href="https://example.com/apply" target="_blank">
-    <button class="apply-btn">Apply for a Loan</button>
-  </a>
+  <div class="repayment" id="repaymentText">පූර්ණ ආපසු ගෙවීම්: Rs <span id="repayment">44000</span></div>
 
-  <div class="repayment">Total repayment amount: Rs <span id="repayment">44000</span></div>
+  <a href="https://example.com/apply" target="_blank">
+    <button class="apply-btn" id="applyBtn">ණය සඳහා අයදුම් කරන්න</button>
+  </a>
 </div>
 
 <script>
@@ -157,6 +159,32 @@
     loanValue.textContent = this.value;
     repayment.textContent = Math.round(this.value * 1.10);
   };
+
+  // Language Switching
+  const langSelect = document.getElementById("langSelect");
+
+  langSelect.addEventListener('change', function () {
+    const lang = this.value;
+
+    if (lang === "en") {
+      document.getElementById("title").textContent = "Fast online loans up to Rs 300,000";
+      document.getElementById("desc").textContent = "Only NIC is required. Get your money in 5 minutes.";
+      document.getElementById("loanLabel").textContent = "Loan amount: Rs " + slider.value;
+      document.getElementById("phoneLabel").textContent = "Enter your phone number";
+      document.getElementById("repaymentText").innerHTML = "Total repayment amount: Rs <span id='repayment'>" + repayment.textContent + "</span>";
+      document.getElementById("applyBtn").textContent = "Apply for a Loan";
+    } else {
+      document.getElementById("title").textContent = "ඉක්මන් ණය ලබා ගන්න Rs 300,000 දක්වා";
+      document.getElementById("desc").textContent = "හැමොටම NIC පමණක් අවශ්‍යයි. විනාඩි 5න් මුදල් ලබා ගන්න.";
+      document.getElementById("loanLabel").textContent = "ණය මුදල: Rs " + slider.value;
+      document.getElementById("phoneLabel").textContent = "දුරකථන අංකය ඇතුලත් කරන්න";
+      document.getElementById("repaymentText").innerHTML = "පූර්ණ ආපසු ගෙවීම්: Rs <span id='repayment'>" + repayment.textContent + "</span>";
+      document.getElementById("applyBtn").textContent = "ණය සඳහා අයදුම් කරන්න";
+    }
+  });
+
+  // Trigger on first load
+  langSelect.dispatchEvent(new Event('change'));
 </script>
 
 </body>
