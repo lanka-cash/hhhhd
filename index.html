@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Capital Lanka Loan</title>
   <style>
     body {
@@ -143,7 +143,10 @@
     <input type="tel" placeholder="07XXXXXXXX">
   </div>
 
-  <div class="repayment" id="repaymentText">පූර්ණ ආපසු ගෙවීම්: Rs <span id="repayment">44000</span></div>
+  <div class="repayment" id="repaymentText">
+    පූර්ණ ආපසු ගෙවීම් (මාස 6කට): Rs <span id="repayment">44000</span><br>
+    මාසික ගෙවීම: Rs 7333 × මාස 6
+  </div>
 
   <a href="https://example.com/apply" target="_blank">
     <button class="apply-btn" id="applyBtn">ණය සඳහා අයදුම් කරන්න</button>
@@ -151,39 +154,72 @@
 </div>
 
 <script>
-  const slider = document.getElementById("loanSlider");
-  const loanValue = document.getElementById("loanValue");
-  const repayment = document.getElementById("repayment");
-
-  slider.oninput = function () {
-    loanValue.textContent = this.value;
-    repayment.textContent = Math.round(this.value * 1.10);
-  };
-
-  // Language Switching
+  let slider = document.getElementById("loanSlider");
+  let loanValue = document.getElementById("loanValue");
+  let repaymentSpan = document.getElementById("repayment");
   const langSelect = document.getElementById("langSelect");
+
+  function updateLoanValues() {
+    if (!loanValue || !repaymentSpan) return;
+
+    const amount = parseInt(slider.value);
+    const repayment = Math.round(amount * 1.10);
+    const monthly = Math.round(repayment / 6);
+    loanValue.textContent = amount;
+    repaymentSpan.textContent = repayment;
+
+    const lang = langSelect.value;
+
+    if (lang === "en") {
+      document.getElementById("repaymentText").innerHTML =
+        "Total repayment amount (for 6 months): Rs <span id='repayment'>" + repayment + "</span><br>" +
+        "Monthly installment: Rs " + monthly + " × 6 months";
+    } else {
+      document.getElementById("repaymentText").innerHTML =
+        "පූර්ණ ආපසු ගෙවීම් (මාස 6කට): Rs <span id='repayment'>" + repayment + "</span><br>" +
+        "මාසික ගෙවීම: Rs " + monthly + " × මාස 6";
+    }
+
+    repaymentSpan = document.getElementById("repayment");
+  }
+
+  slider.oninput = updateLoanValues;
 
   langSelect.addEventListener('change', function () {
     const lang = this.value;
+    const amount = parseInt(slider.value);
+    const repayment = Math.round(amount * 1.10);
+    const monthly = Math.round(repayment / 6);
 
     if (lang === "en") {
       document.getElementById("title").textContent = "Fast online loans up to Rs 300,000";
       document.getElementById("desc").textContent = "Only NIC is required. Get your money in 5 minutes.";
-      document.getElementById("loanLabel").textContent = "Loan amount: Rs " + slider.value;
+      document.getElementById("loanLabel").innerHTML = "Loan amount: Rs <span id='loanValue'>" + amount + "</span>";
       document.getElementById("phoneLabel").textContent = "Enter your phone number";
-      document.getElementById("repaymentText").innerHTML = "Total repayment amount: Rs <span id='repayment'>" + repayment.textContent + "</span>";
+      document.getElementById("repaymentText").innerHTML =
+        "Total repayment amount (for 6 months): Rs <span id='repayment'>" + repayment + "</span><br>" +
+        "Monthly installment: Rs " + monthly + " × 6 months";
       document.getElementById("applyBtn").textContent = "Apply for a Loan";
     } else {
       document.getElementById("title").textContent = "ඉක්මන් ණය ලබා ගන්න Rs 300,000 දක්වා";
       document.getElementById("desc").textContent = "හැමොටම NIC පමණක් අවශ්‍යයි. විනාඩි 5න් මුදල් ලබා ගන්න.";
-      document.getElementById("loanLabel").textContent = "ණය මුදල: Rs " + slider.value;
+      document.getElementById("loanLabel").innerHTML = "ණය මුදල: Rs <span id='loanValue'>" + amount + "</span>";
       document.getElementById("phoneLabel").textContent = "දුරකථන අංකය ඇතුලත් කරන්න";
-      document.getElementById("repaymentText").innerHTML = "පූර්ණ ආපසු ගෙවීම්: Rs <span id='repayment'>" + repayment.textContent + "</span>";
+      document.getElementById("repaymentText").innerHTML =
+        "පූර්ණ ආපසු ගෙවීම් (මාස 6කට): Rs <span id='repayment'>" + repayment + "</span><br>" +
+        "මාසික ගෙවීම: Rs " + monthly + " × මාස 6";
       document.getElementById("applyBtn").textContent = "ණය සඳහා අයදුම් කරන්න";
     }
+
+    // Refresh span references
+    loanValue = document.getElementById("loanValue");
+    repaymentSpan = document.getElementById("repayment");
+
+    updateLoanValues();
   });
 
-  // Trigger on first load
+  // Initial setup
+  updateLoanValues();
   langSelect.dispatchEvent(new Event('change'));
 </script>
 
