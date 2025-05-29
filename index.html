@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapitalLanka Loan Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .header-buttons button {
+            margin-left: 10px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-btn {
+            background-color: #eee;
+        }
+        .menu-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        input[type="number"], input[type="text"], input[type="range"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        .apply-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .total-repayment, .monthly-info, .six-month-info {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1em;
+        }
+    </style>
+    <script>
+        function updateInfo() {
+            const loanAmount = document.getElementById('loanAmount').value;
+            document.getElementById('repayment').innerText = loanAmount;
+            document.getElementById('monthly').innerText = Math.ceil(loanAmount / 12) + ' per month (12 months)';
+            document.getElementById('sixMonth').innerText = Math.ceil(loanAmount / 6) + ' per month (6 months)';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">CapitalLanka</div>
+        <div class="header-buttons">
+            <button class="login-btn">Login</button>
+            <button class="menu-btn">☰</button>
+        </div>
+    </header><div class="container">
+    <h1>Fast online loans up to Rs 500,000</h1>
+    <p>Only NIC is required. Enter your mobile number below.</p>
+
+    <input type="range" id="loanAmount" min="1000" max="500000" step="1000" value="1000" oninput="updateInfo()">
+    <input type="text" placeholder="Enter mobile number">
+
+    <button class="apply-btn">Apply for a Loan</button>
+
+    <div class="total-repayment">
+        Total repayment amount: Rs <span id="repayment">1000</span>
+    </div>
+
+    <div class="monthly-info">
+        Monthly (12 months): <span id="monthly">84 per month (12 months)</span>
+    </div>
+
+    <div class="six-month-info">
+        Monthly (6 months): <span id="sixMonth">167 per month (6 months)</span>
+    </div>
+</div>
+
+</body>
+</html>
