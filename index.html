@@ -1,229 +1,204 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Capital Lanka Loan</title>
+  <title>Ceyloan Clone</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
     }
 
-    header {
-      background-color: #fff;
+    .header {
+      background: white;
       padding: 15px 20px;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    .left-header {
+    .logo {
       font-weight: bold;
-      font-size: 18px;
-      text-transform: lowercase;
+      font-size: 20px;
+      color: #006600;
     }
 
-    .right-header {
+    .lang-login {
       display: flex;
-      gap: 10px;
       align-items: center;
+      gap: 10px;
     }
 
-    .flag-selector {
-      font-size: 16px;
-      padding: 5px;
-    }
-
-    .login-btn, .menu-btn {
-      padding: 8px 12px;
-      border: none;
+    .lang-switch button, .login-btn {
+      padding: 5px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
       border-radius: 5px;
+      background: white;
       cursor: pointer;
     }
 
-    .menu-btn {
-      background-color: #28a745;
+    .login-btn {
+      background: #00b300;
       color: white;
+      border: none;
     }
 
     .container {
-      background-color: #fff;
-      margin: 20px auto;
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
       padding: 20px;
-      max-width: 400px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    .title {
+    h1 {
+      text-align: center;
       font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 5px;
     }
 
-    .desc {
-      color: gray;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    input[type=tel], input[type=number] {
-      width: 100%;
-      padding: 10px;
+    .slider-label, .months-label, .result {
+      margin-top: 20px;
       font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
     }
 
     input[type=range] {
       width: 100%;
-      margin-top: 10px;
+    }
+
+    input[type=tel] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
 
     .apply-btn {
-      background-color: #28a745;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #00b300;
       color: white;
-      padding: 12px;
       border: none;
-      border-radius: 5px;
       width: 100%;
+      border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
     }
 
-    .repayment-row {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-      color: #333;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .repayment-text, .installment-text {
-      font-size: 15px;
-    }
-
-    @media(max-width: 500px) {
+    @media (max-width: 600px) {
       .container {
-        margin: 10px;
-        padding: 15px;
+        border-radius: 0;
+        margin-top: 0;
       }
-
-      .repayment-row {
+      .header {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
+        gap: 10px;
       }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="left-header">capital lanka</div>
-  <div class="right-header">
-    <select class="flag-selector" id="langSelect">
-      <option value="si" selected>🇱🇰 සිංහල</option>
-      <option value="en">🇬🇧 English</option>
-    </select>
-    <button class="login-btn">Login</button>
-    <button class="menu-btn">☰</button>
-  </div>
-</header>
-
-<div class="container">
-  <div class="title" id="title">ඉක්මන් ණය ලබා ගන්න Rs 300,000 දක්වා</div>
-  <div class="desc" id="desc">හැමොටම NIC පමණක් අවශ්‍යයි. විනාඩි 5න් මුදල් ලබා ගන්න.</div>
-
-  <div class="form-group">
-    <label id="loanLabel">ණය මුදල: Rs <span id="loanValue">40000</span></label>
-    <input type="range" id="loanSlider" min="40000" max="300000" value="40000" step="1000">
-  </div>
-
-  <div class="form-group">
-    <label id="phoneLabel">දුරකථන අංකය ඇතුලත් කරන්න</label>
-    <input type="tel" placeholder="07XXXXXXXX">
-  </div>
-
-  <div class="repayment-row">
-    <div class="repayment-text" id="repaymentText">
-      පූර්ණ ආපසු ගෙවීම්: Rs <span id="repayment">44000</span>
-    </div>
-    <div class="installment-text" id="installmentText">
-      මාසික ගෙවීම: Rs <span id="installment">7333</span>
+  <div class="header">
+    <div class="logo">ceyloan</div>
+    <div class="lang-login">
+      <div class="lang-switch">
+        <button onclick="setLang('en')">EN</button>
+        <button onclick="setLang('si')">සිං</button>
+      </div>
+      <button class="login-btn">Login</button>
     </div>
   </div>
 
-  <a href="https://example.com/apply" target="_blank">
-    <button class="apply-btn" id="applyBtn">ණය සඳහා අයදුම් කරන්න</button>
-  </a>
-</div>
+  <div class="container">
+    <h1 id="title">Fast online loans</h1>
 
-<script>
-  let slider = document.getElementById("loanSlider");
-  let loanValue = document.getElementById("loanValue");
-  let repaymentSpan = document.getElementById("repayment");
-  let installmentSpan = document.getElementById("installment");
-  const langSelect = document.getElementById("langSelect");
+    <label class="slider-label" id="loanAmountLabel">Loan amount: Rs <span id="loanAmount">30000</span></label>
+    <input type="range" id="amountSlider" min="30000" max="500000" step="1000" value="30000" oninput="updateValues()">
 
-  function updateLoanValues() {
-    const loanAmount = parseInt(slider.value);
-    const repaymentAmount = Math.round(loanAmount * 1.10);
-    const monthlyInstallment = Math.round(repaymentAmount / 6);
+    <div class="months-label" id="monthsLabel">Installment Plan: <span id="months">6</span> months</div>
+    <div class="result" id="monthlyLabel">Monthly Payment: Rs <span id="monthly">0</span></div>
+    <div class="result" id="totalLabel">Total Repayment: Rs <span id="total">0</span></div>
 
-    loanValue.textContent = loanAmount;
-    repaymentSpan.textContent = repaymentAmount;
-    installmentSpan.textContent = monthlyInstallment;
-  }
+    <input type="tel" id="phone" placeholder="Enter phone number" />
 
-  slider.oninput = updateLoanValues;
+    <a href="https://example.com/apply" id="applyLink">
+      <button class="apply-btn" id="applyBtn">Apply for a Loan</button>
+    </a>
+  </div>
 
-  langSelect.addEventListener('change', function () {
-    const lang = this.value;
-    const loanAmount = parseInt(slider.value);
-    const repaymentAmount = Math.round(loanAmount * 1.10);
-    const monthlyInstallment = Math.round(repaymentAmount / 6);
+  <script>
+    let language = 'en';
 
-    if (lang === "en") {
-      document.getElementById("title").textContent = "Fast online loans up to Rs 300,000";
-      document.getElementById("desc").textContent = "Only NIC is required. Get your money in 5 minutes.";
-      document.getElementById("loanLabel").innerHTML = "Loan amount: Rs <span id='loanValue'>" + loanAmount + "</span>";
-      document.getElementById("phoneLabel").textContent = "Enter your phone number";
-      document.getElementById("repaymentText").innerHTML = "Total repayment: Rs <span id='repayment'>" + repaymentAmount + "</span>";
-      document.getElementById("installmentText").innerHTML = "Monthly installment: Rs <span id='installment'>" + monthlyInstallment + "</span>";
-      document.getElementById("applyBtn").textContent = "Apply for a Loan";
-    } else {
-      document.getElementById("title").textContent = "ඉක්මන් ණය ලබා ගන්න Rs 300,000 දක්වා";
-      document.getElementById("desc").textContent = "හැමොටම NIC පමණක් අවශ්‍යයි. විනාඩි 5න් මුදල් ලබා ගන්න.";
-      document.getElementById("loanLabel").innerHTML = "ණය මුදල: Rs <span id='loanValue'>" + loanAmount + "</span>";
-      document.getElementById("phoneLabel").textContent = "දුරකථන අංකය ඇතුලත් කරන්න";
-      document.getElementById("repaymentText").innerHTML = "පූර්ණ ආපසු ගෙවීම්: Rs <span id='repayment'>" + repaymentAmount + "</span>";
-      document.getElementById("installmentText").innerHTML = "මාසික ගෙවීම: Rs <span id='installment'>" + monthlyInstallment + "</span>";
-      document.getElementById("applyBtn").textContent = "ණය සඳහා අයදුම් කරන්න";
+    const translations = {
+      en: {
+        title: "Fast online loans",
+        loanAmountLabel: "Loan amount: Rs",
+        monthsLabel: "Installment Plan",
+        monthlyLabel: "Monthly Payment",
+        totalLabel: "Total Repayment",
+        applyBtn: "Apply for a Loan"
+      },
+      si: {
+        title: "ඉක්මන් ඔන්ලයින් ණය",
+        loanAmountLabel: "ණය මුදල: රු",
+        monthsLabel: "මසික වාරික",
+        monthlyLabel: "මසකට ගෙවීම",
+        totalLabel: "මුළු ගෙවීම",
+        applyBtn: "ණයක් සඳහා අයදුම් කරන්න"
+      }
+    };
+
+    function setLang(lang) {
+      language = lang;
+      document.getElementById("title").textContent = translations[lang].title;
+      document.getElementById("loanAmountLabel").childNodes[0].textContent = translations[lang].loanAmountLabel + " ";
+      document.getElementById("monthsLabel").childNodes[0].textContent = translations[lang].monthsLabel + ": ";
+      document.getElementById("monthlyLabel").childNodes[0].textContent = translations[lang].monthlyLabel + ": Rs ";
+      document.getElementById("totalLabel").childNodes[0].textContent = translations[lang].totalLabel + ": Rs ";
+      document.getElementById("applyBtn").textContent = translations[lang].applyBtn;
     }
 
-    // Rebind dynamic elements
-    loanValue = document.getElementById("loanValue");
-    repaymentSpan = document.getElementById("repayment");
-    installmentSpan = document.getElementById("installment");
+    function updateValues() {
+      const amount = parseInt(document.getElementById("amountSlider").value);
+      let months = 6;
 
-    updateLoanValues();
-  });
+      if (amount > 120000 && amount <= 170000) {
+        months = 12;
+      } else if (amount > 170000 && amount <= 300000) {
+        months = 24;
+      } else if (amount > 300000) {
+        months = 36;
+      }
 
-  // On load
-  updateLoanValues();
-  langSelect.dispatchEvent(new Event('change'));
-</script>
+      document.getElementById("loanAmount").textContent = amount;
+      document.getElementById("months").textContent = months;
+
+      const monthly = Math.round(amount / months);
+      const total = monthly * months;
+
+      document.getElementById("monthly").textContent = monthly;
+      document.getElementById("total").textContent = total;
+    }
+
+    updateValues(); // Initialize
+  </script>
 
 </body>
 </html>
